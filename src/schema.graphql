@@ -2,8 +2,11 @@
 
 type Query {
     me: User
+    account(where: AccountWhereUniqueInput!): Account
     accounts(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account!]
+    category(where: CategoryWhereUniqueInput!): Category
     categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+    transaction(where: TransactionWhereUniqueInput!): Transaction
     transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction!]
 }
 
