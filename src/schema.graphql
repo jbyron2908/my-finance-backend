@@ -1,6 +1,7 @@
 # import Post from "./generated/prisma.graphql"
 
 type Query {
+    "Get current user"
     me: User
     account(where: AccountWhereUniqueInput!): Account
     accounts(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account!]
