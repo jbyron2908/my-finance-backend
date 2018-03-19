@@ -21,7 +21,8 @@ type Account {
 type Category {
     id: ID! @unique
     name: String!
-    parent: Category
+    parent: Category @relation(name: "CategoryOnCategory")
+    children: [Category!]! @relation(name: "CategoryOnCategory")
     delete: Boolean @default(value: false)
     deleteDate: DateTime
     transactions: [Transaction!]!
