@@ -1,0 +1,62 @@
+type User {
+    id: ID! @unique
+    email: String! @unique
+    password: String!
+    name: String!
+    accounts: [Account!]!
+    categories: [Category!]!
+    transactions: [Transaction!]!
+}
+
+type Account {
+    id: ID! @unique
+    name: String!
+    type: AccountType! @default(value: Bank)
+    initialValue: Float! @default(value: 0)
+    delete: Boolean @default(value: false)
+    deleteDate: DateTime
+    user: User!
+}
+
+type Category {
+    id: ID! @unique
+    name: String!
+    parent: Category @relation(name: "CategoryOnCategory")
+    children: [Category!]! @relation(name: "CategoryOnCategory")
+    delete: Boolean @default(value: false)
+    deleteDate: DateTime
+    transactions: [Transaction!]!
+    user: User!
+}
+
+type Transaction {
+    id: ID! @unique
+    value: Float!
+    operation: Operation! @default(value: Plus)
+    category: Category!
+    date: DateTime!
+    description: String
+    note: String
+    status: Status! @default(value: Paid)
+    delete: Boolean @default(value: false)
+    deleteDate: DateTime
+    account: Account!
+    user: User!
+}
+
+enum AccountType {
+    Bank
+    Wallet
+    CreditCard
+}
+
+enum Operation {
+    Plus
+    Minus
+}
+
+enum Status {
+    None
+    Pending
+    Paid
+}

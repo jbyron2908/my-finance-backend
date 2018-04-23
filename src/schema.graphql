@@ -1,0 +1,53 @@
+# import Post from "./generated/prisma.graphql"
+
+type Query {
+    "Get current user"
+    me: User
+    account(where: AccountWhereUniqueInput!): Account
+    accounts(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account!]
+    category(where: CategoryWhereUniqueInput!): Category
+    categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+    transaction(where: TransactionWhereUniqueInput!): Transaction
+    transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction!]
+}
+
+type Mutation {
+    signup(email: String!, password: String!, name: String!): AuthPayload!
+    login(email: String!, password: String!): AuthPayload!
+
+    createAccount(data: AccountCreateWithoutUserInput!): Account!
+    updateAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account
+    updateAccounts(data: AccountUpdateInput!, where: AccountWhereInput!): BatchPayload
+    deleteAccount(where: AccountWhereUniqueInput!): Account
+    deleteAccounts(where: AccountWhereInput!): BatchPayload
+
+    createCategory(data: CategoryCreateWithoutUserInput!): Category!
+    updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+    updateCategories(data: CategoryUpdateInput!, where: CategoryWhereInput!): BatchPayload
+    deleteCategory(where: CategoryWhereUniqueInput!): Category
+    deleteCategories(where: CategoryWhereInput!): BatchPayload
+
+    createTransaction(data: TransactionCreateWithoutUserInput!): Transaction!
+    updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction
+    updateTransactions(data: TransactionUpdateInput!, where: TransactionWhereInput!): BatchPayload
+    deleteTransaction(where: TransactionWhereUniqueInput!): Transaction
+    deleteTransactions(where: TransactionWhereInput!): BatchPayload
+}
+
+type Subscription {
+    transactionSubscription: TransactionSubscriptionPayload!
+}
+
+type AuthPayload {
+    token: String!
+    user: User!
+}
+
+type User {
+    id: ID!
+    email: String!
+    name: String!
+    accounts(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account!]
+    categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+    transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction!]
+}
